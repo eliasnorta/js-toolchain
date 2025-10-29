@@ -1,4 +1,4 @@
-function promt() {
+function userPrompt() {
   const temp = prompt('Please enter the temperature in Celsius:');
 
   const fahrenheit = (temp * 9) / 5 + 32;
@@ -19,4 +19,4 @@ function promt() {
   tempDiv.appendChild(kelvinP);
 }
 
-promt();
+userPrompt();

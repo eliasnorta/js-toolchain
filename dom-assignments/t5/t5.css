@@ -9,3 +9,7 @@ body {
   height: 50dvh;
   width: 100dvw;
 }
+
+small {
+  color: grey;
+}

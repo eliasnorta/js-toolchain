@@ -804,6 +804,7 @@ navigator.geolocation.getCurrentPosition(function (pos) {
   }
 
   const table = document.querySelector('body table');
+
   for (let i = 0; i < restaurants.length; i++) {
     const restaurant = restaurants[i];
     const tr = document.createElement('tr');

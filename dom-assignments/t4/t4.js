@@ -771,3 +771,48 @@ const restaurants = [
 ];
 
 // your code here
+
+var map = L.map('map').setView([0, 0], 1);
+
+const attribution =
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const tiles = L.tileLayer(tileUrl, {attribution});
+tiles.addTo(map);
+
+navigator.geolocation.getCurrentPosition(function (pos) {
+  const lat = pos.coords.latitude;
+  const long = pos.coords.longitude;
+
+  console.log(lat);
+  console.log(long);
+
+  L.marker([lat, long]).addTo(map).bindPopup('Your location').openPopup();
+  map.setView([lat, long], 13);
+
+  restaurants.sort((a, b) => {
+    const [lonA, latA] = a.location.coordinates;
+    const [lonB, latB] = b.location.coordinates;
+    const distA = getDistance(lat, long, latA, lonA);
+    const distB = getDistance(lat, long, latB, lonB);
+    return distA - distB;
+  });
+
+  function getDistance(lat1, lon1, lat2, lon2) {
+    return Math.sqrt(Math.pow(lat2 - lat1, 2) + Math.pow(lon2 - lon1, 2));
+  }
+
+  const table = document.querySelector('body table');
+  for (let i = 0; i < restaurants.length; i++) {
+    const restaurant = restaurants[i];
+    const tr = document.createElement('tr');
+    const nameTd = document.createElement('td');
+    nameTd.textContent = restaurant.name;
+    const addressTd = document.createElement('td');
+    addressTd.textContent = restaurant.address;
+    tr.appendChild(nameTd);
+    tr.appendChild(addressTd);
+    table.appendChild(tr);
+  }
+});

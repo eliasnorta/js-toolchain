@@ -6,13 +6,14 @@ async function fetchData(url, apiKey) {
       },
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
       throw new Error(
         `Request failed with status ${response.status}: ${response.statusText}`
       );
     }
 
-    const data = await response.json();
     console.log(data);
     return data;
   } catch (error) {

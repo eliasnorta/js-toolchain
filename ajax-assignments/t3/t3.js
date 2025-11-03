@@ -6,14 +6,15 @@ async function fetchData(url, apiKey) {
       },
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
       const errorText = await response.text();
       console.error(`Error ${response.status}: ${response.statusText}`);
       console.error('Response body:', errorText);
-      throw new Error('Network response was not ok');
+      throw new Error('Network error');
     }
 
-    const data = await response.json();
     console.log(data);
   } catch (error) {
     console.error(error);

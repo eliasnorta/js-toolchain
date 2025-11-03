@@ -1,25 +1,29 @@
-async function postData(url, data) {
+async function postData(url, apiKey, data) {
   try {
-    const response = await fetch(url, {
+    const res = await fetch(url, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+      },
       body: JSON.stringify(data),
     });
+    const result = await res.json();
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+    if (!res.ok) {
+      console.log(data.description);
+      return;
     }
 
-    const result = await response.json();
     console.log(result);
   } catch (error) {
-    console.error('Fetch error:', error);
+    console.log(error);
   }
 }
 
 const data = {
-  first_name: 'John',
-  last_name: 'Smith',
-  email: 'john@example.com',
+  name: 'John',
+  job: 'Software engineer',
 };
 
-postData('https://reqres.in/api/users', data);
+postData('https://reqres.in/api/users', 'reqres-free-v1', data);

@@ -33,3 +33,17 @@ tr:hover {
   background-color: blue;
   color: white;
 }
+
+/* menu */
+
+.menu_item {
+  margin: 5px 0px;
+}
+
+.menu_diets {
+  color: grey;
+}
+
+.menu_indent {
+  margin-left: 10px;
+}

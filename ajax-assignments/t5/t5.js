@@ -3,6 +3,15 @@ const API_BASE_URL = 'https://media2.edu.metropolia.fi/restaurant/api/v1';
 const RESTAURANTS_ENDPOINT = `${API_BASE_URL}/restaurants`;
 const MENU_LANGUAGE = 'fi';
 
+// Price group labels in order
+const PRICE_GROUPS = [
+  'Opiskelija',
+  'Henkilökunta',
+  'Vieras',
+  'Oppisopimus',
+  'Talon vieras',
+];
+
 // DOM Elements
 const table = document.querySelector('body table');
 const modal = document.querySelector('dialog');
@@ -50,8 +59,15 @@ async function getMenuHtml(restaurantId) {
       );
     const data = await response.json();
     if (data.courses && data.courses.length > 0) {
-      return `<h3>Menu for Today</h3><ul>${data.courses
-        .map((c) => `<li>${c.name}</li>`)
+      return `<ul>${data.courses
+        .map(
+          (c) =>
+            `<li class="menu_item"><div><strong>${
+              c.name
+            }</strong></div><div class="menu_indent">${
+              c.price ? `<small>${c.price}</small>` : ''
+            }<div><small class="menu_diets">${c.diets}</small></div></div></li>`
+        )
         .join('')}</ul>`;
     }
     return '<p>No menu available for today.</p>';

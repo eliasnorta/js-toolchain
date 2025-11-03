@@ -1,17 +1,19 @@
 async function fetchData(url, apiKey) {
   try {
-    const response = await fetch(url, {
+    const res = await fetch(url, {
       headers: {
         'x-api-key': apiKey,
       },
     });
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+    const result = await res.json();
+
+    if (!res.ok) {
+      console.log(data.description);
+      return;
     }
 
-    const data = await response.json();
-    console.log(data);
+    console.log(result);
   } catch (error) {
     console.error('Fetch error:', error);
   }
